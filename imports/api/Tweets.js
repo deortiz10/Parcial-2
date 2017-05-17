@@ -45,7 +45,7 @@ if (Meteor.isServer) {
         // resolve(tweet);
           if(tweet.coordinates!==null)
           {
-              console.log("entro un malddito tweet");
+              console.log("entro un tweet");
               Tweets.insert(tweet);
              // console.log(Tweets.find({}).fetch());
           }
