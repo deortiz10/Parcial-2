@@ -10,7 +10,7 @@ export default class ColombiaMap extends Component {
 		super(props);
 
 		this.projection = null;
-    setP={this.setProj.bind(this)};
+    //setP={this.setProj.bind(this)};
 	}
 
 
@@ -34,8 +34,14 @@ export default class ColombiaMap extends Component {
 		  .center([-74, 4.5])
 		  .translate([width / 2, height / 2]);
 
+        //processProjection();
+        this.props.getPrj(this.projection);
+
+
 		var path = d3.geo.path()
 		  .projection(this.projection);
+
+
 
 		// Set svg width & height
 		var svg = d3.select(this.svg)
@@ -261,7 +267,13 @@ export default class ColombiaMap extends Component {
 		      return 0.1 + Math.random()*0.4;
 		    });
 		}
-	}
+		//function processProjection()
+       // {
+
+
+       // }
+    }
+
 
 	render() {
 		return (
@@ -271,4 +283,5 @@ export default class ColombiaMap extends Component {
 				</svg>
 			</div>);
 	}
+
 }

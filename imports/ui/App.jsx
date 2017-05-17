@@ -1,15 +1,19 @@
 import React, {Component} from "react";
 import {PropTypes} from "prop-types";
 import { Meteor } from "meteor/meteor";
-import { createContainer} from "meteor/react-meteor-data"
+import { createContainer} from "meteor/react-meteor-data";
 
 import TweetsResults from "./TweetsResults.jsx";
 import {Tweets} from "../api/Tweets.js";
-import ColombiaMap from "./ColombiaMap"
+import ColombiaMap from "./ColombiaMap";
+import drawMap from  "./drawMap.jsx";
+import Dibujo from "./dibujo";
+
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.projection;
+    this.projection=null;
+    this.tosend=null;
 
   }
 
@@ -24,11 +28,20 @@ export class App extends Component {
     Meteor.call("twitter.stream", evt.target.value);
 
   }
+  sendFunction()
+  {
+    return this.projection;
+  }
 
 getData()
 {
 var data= this.props.tweets;
 
+}
+
+getProjection( arr)
+{
+  this.projection=arr;
 }
   render() {
     console.log("render!");
@@ -39,11 +52,20 @@ var data= this.props.tweets;
           <div>Error: {this.props.err}</div> :
           <span></span>
         }
+
         <h2>Map</h2>
-        <ColombiaMap
+        <div className="insideWrapper">
+        <ColombiaMap getPrj={this.getProjection.bind(this)}
+
         width="600"
          height="600"
          />
+        <drawMap/>
+        <Dibujo
+          sendF={this.sendFunction.bind(this)}
+          tweets={this.props.tweets}
+        />
+      </div>
         <h2>Results:</h2>
         {this.props && this.props.tweets ?
           <TweetsResults tweets={this.props.tweets}/> :

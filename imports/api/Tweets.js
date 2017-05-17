@@ -24,10 +24,12 @@ if (Meteor.isServer) {
 
       // Create the Twitter object
       let client = new Twitter({
-        consumer_key: process.env.TWITTER_CONSUMER_KEY,
-     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-     access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+          consumer_key: process.env.TWITTER_CONSUMER_KEY,
+          consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+          access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+          access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+         
+
       });
 
       if (stream) {
@@ -41,7 +43,13 @@ if (Meteor.isServer) {
       stream = client.stream("statuses/filter", {track: query, locations:locations});
       stream.on("data", Meteor.bindEnvironment(function(tweet) {
         // resolve(tweet);
-        Tweets.insert(tweet);
+          if(tweet.coordinates!==null)
+          {
+              console.log("entro un malddito tweet");
+              Tweets.insert(tweet);
+             // console.log(Tweets.find({}).fetch());
+          }
+
       }));
 
       stream.on("error", function(error) {
