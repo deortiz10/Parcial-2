@@ -14,6 +14,9 @@ export class App extends Component {
     super(props);
     this.projection=null;
     this.tosend=null;
+    this.state= {
+
+    }
 
   }
 
@@ -31,6 +34,10 @@ export class App extends Component {
   sendFunction()
   {
     return this.projection;
+  }
+  changecolor()
+  {
+
   }
 
 getData()
@@ -54,6 +61,8 @@ getProjection( arr)
         }
 
         <h2>Map</h2>
+        <div className="row">
+          <div className="col-sm-6">
         <div className="insideWrapper">
         <ColombiaMap getPrj={this.getProjection.bind(this)}
 
@@ -64,16 +73,20 @@ getProjection( arr)
         <Dibujo
           sendF={this.sendFunction.bind(this)}
           tweets={this.props.tweets}
+          state={this.state}
         />
+        </div>
       </div>
+          <div className="col-sm-6">
         <h2>Results:</h2>
         {this.props && this.props.tweets ?
           <TweetsResults tweets={this.props.tweets}/> :
           <p>Enter a query</p>
         }
+        </div>
 
       </div>
-
+      </div>
     );
   }
 }

@@ -1,4 +1,7 @@
 /* CSS declarations go here */
+body{
+    font-family: 'Playfair Display', serif;
+}
 .insideWrapper{
     width:600px; height:600px;
     position:relative;}

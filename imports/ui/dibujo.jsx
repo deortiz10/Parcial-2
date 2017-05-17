@@ -1,11 +1,12 @@
 import React, {Component, PropTypes} from 'react';
-
+import {Random} from 'meteor/random';
 import {Tweets} from "../api/Tweets.js";
 export default class Dibujo extends Component{
 
     constructor(props)
     {
         super(props);
+
         // this.canvas=null;
     }
     componentWillUpdate() {
@@ -35,21 +36,29 @@ export default class Dibujo extends Component{
 
                 let translate= this.props.sendF();
                 var finito=translate(tweet.coordinates.coordinates);
-                this.dibujarPuntos(finito);
+                var image=tweet.user.profile_image_url;
+
+                this.dibujarPuntos(finito, image);
             });
         //}
 
 
     }
-    dibujarPuntos(arr)
+    dibujarPuntos(arr, ima)
     {
         var c2 = document.getElementById("myCanvas");
         var ctx2 = c2.getContext("2d");
         ctx2.beginPath();
-        ctx2.arc(arr[0],arr[1],5,0,2*Math.PI);
-        ctx2.fillStyle="blue";
+        //ctx2.drawImage(ima,arr[0],arr[1],10,10);
+        var r= Math.floor(Math.random()*(255+1));
+        var g= Math.floor(Math.random()*(255+1));
+        var b= Math.floor(Math.random()*(255+1));
+        size= Math.floor(Math.random()*(25-5+1)+5);
+        ctx2.arc(arr[0],arr[1],size,0,2*Math.PI);
+        ctx2.fillStyle='rgb('+r+','+g+','+b+')';
         ctx2.fill();
         ctx2.stroke();
+
 
     }
     render()
